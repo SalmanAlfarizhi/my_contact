@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:my_contact/pages/home_page.dart';
-import 'package:my_contact/pages/register_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
   return Scaffold(
@@ -38,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             SizedBox(height: 50),
-            Text("Welcome Back!",
+            Text("Create Account!",
             style: TextStyle(
               fontSize: 24,
               fontFamily: 'PromptBold',
@@ -112,30 +110,30 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-              alignment: Alignment.centerRight,
-              child: GestureDetector(
-                onTap: () {
-                  // Write Click Listener Code Here
-                },
-                child: Text("Forgot Password?",
-                style: TextStyle(
-                  color: Color.fromARGB(255, 149, 83, 241),
-                  fontSize: 16,
-                  fontFamily: 'PromptRegular'
-                ),),
-              ),
-            ),
+            // Container(
+            //   margin: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            //   alignment: Alignment.centerRight,
+            //   child: GestureDetector(
+            //     onTap: () {
+            //       // Write Click Listener Code Here
+            //     },
+            //     child: Text("Forgot Password?",
+            //     style: TextStyle(
+            //       color: Color.fromARGB(255, 149, 83, 241),
+            //       fontSize: 16,
+            //       fontFamily: 'PromptRegular'
+            //     ),),
+            //   ),
+            // ),
 
             GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()),
-                );
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()),
+                // );
               },
               child: Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.only(left: 20, right: 20, top: 70),
+                margin: EdgeInsets.only(left: 20, right: 20, top: 150),
                 padding: EdgeInsets.only(left: 20, right: 20),
                 height: 54,
                 decoration: BoxDecoration(
@@ -150,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
                 child: Text(
-                  "Sign in",
+                  "Sign up",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -162,8 +160,7 @@ class _LoginPageState extends State<LoginPage> {
 
             GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()),
-                );
+                // Write Click Listener Code Here.
               },
               child: Container(
                 alignment: Alignment.center,
@@ -187,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
                 child: Text(
-                  "Sign up",
+                  "Sign in",
                   style: TextStyle(
                     fontFamily: 'PromptMedium',
                     fontSize: 18,
