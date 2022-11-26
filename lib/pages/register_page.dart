@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:my_contact/pages/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -8,6 +10,24 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+
+  TextEditingController controllerEmail = TextEditingController();
+  TextEditingController controllerName = TextEditingController();
+  TextEditingController controllerPass = TextEditingController();
+
+  void register(String email, nama, password) async{
+    try{
+      var response = await Dio().post('http://localhost:3000/users',
+        data: {"email": email, "name":nama, "password":password});
+      if (response.statusCode == 201) {
+        print("Register Success");
+      } else {
+        print("Failed");
+      }
+    } catch (e){
+      print(e);
+    }
+  }
   @override
   Widget build(BuildContext context) {
   return Scaffold(
@@ -59,6 +79,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 ],
               ),
               child: TextField(
+                controller: controllerEmail,
+                style: TextStyle(color: Color.fromARGB(255, 149, 83, 241)),                
                 cursorColor: Color.fromARGB(255, 149, 83, 241),
                 decoration: InputDecoration(
                   icon: Icon(
@@ -93,6 +115,46 @@ class _RegisterPageState extends State<RegisterPage> {
                 ],
               ),
               child: TextField(
+                controller: controllerName,
+                style: TextStyle(color: Color.fromARGB(255, 149, 83, 241)),
+                cursorColor: Color.fromARGB(255, 149, 83, 241),
+                decoration: InputDecoration(
+                  focusColor: Color.fromARGB(255, 149, 83, 241),
+                  icon: Icon(
+                    Icons.account_circle,
+                    color: Color.fromARGB(255, 149, 83, 241),
+                  ),
+                  hintText: "Enter Name",hintStyle: TextStyle(
+                    fontFamily: 'PromptRegular',
+                    fontSize: 18,
+                    color: Color.fromARGB(255, 202, 161, 240),
+                  ),
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                ),
+              ),
+            ),
+
+
+            Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+              padding: EdgeInsets.only(left: 20, right: 20),
+              height: 54,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Color(0xffEEEEEE),
+                boxShadow: [
+                  BoxShadow(
+                      offset: Offset(0, 20),
+                      blurRadius: 100,
+                      color: Color(0xffEEEEEE)
+                  ),
+                ],
+              ),
+              child: TextField(
+                controller: controllerPass,
+                style: TextStyle(color: Color.fromARGB(255, 149, 83, 241)),
                 cursorColor: Color.fromARGB(255, 149, 83, 241),
                 decoration: InputDecoration(
                   focusColor: Color.fromARGB(255, 149, 83, 241),
@@ -110,26 +172,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
             ),
-            // Container(
-            //   margin: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-            //   alignment: Alignment.centerRight,
-            //   child: GestureDetector(
-            //     onTap: () {
-            //       // Write Click Listener Code Here
-            //     },
-            //     child: Text("Forgot Password?",
-            //     style: TextStyle(
-            //       color: Color.fromARGB(255, 149, 83, 241),
-            //       fontSize: 16,
-            //       fontFamily: 'PromptRegular'
-            //     ),),
-            //   ),
-            // ),
+
 
             GestureDetector(
               onTap: () {
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()),
-                // );
+                register(controllerEmail.text, controllerName.text, controllerPass.text);
               },
               child: Container(
                 alignment: Alignment.center,
@@ -160,7 +207,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
             GestureDetector(
               onTap: () {
-                // Write Click Listener Code Here.
+                Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()),
+                );
               },
               child: Container(
                 alignment: Alignment.center,

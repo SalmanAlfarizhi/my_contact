@@ -115,6 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
               child: TextField(
+                style: TextStyle(color: Color.fromARGB(255, 149, 83, 241)),
                 controller: controllerEmail,
                 cursorColor: Color.fromARGB(255, 149, 83, 241),
                 decoration: InputDecoration(
@@ -150,6 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
               child: TextField(
+                style: TextStyle(color: Color.fromARGB(255, 149, 83, 241)),
                 controller: controllerPass,
                 cursorColor: Color.fromARGB(255, 149, 83, 241),
                 decoration: InputDecoration(

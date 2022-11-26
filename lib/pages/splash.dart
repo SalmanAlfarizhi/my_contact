@@ -37,7 +37,7 @@ class _SplashPageState extends State<SplashPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/images/app_logo.png'),
+          Image.asset('assets/images/app_logo.png',height: 178,width: 148,),
           // Text("#oneforsolution",
           // style: TextStyle(
           //   fontSize: 20,
