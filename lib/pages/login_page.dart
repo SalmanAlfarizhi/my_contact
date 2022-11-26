@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:my_contact/pages/home_page.dart';
 import 'package:my_contact/pages/register_page.dart';
@@ -10,6 +11,59 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  TextEditingController controllerEmail = TextEditingController();
+  TextEditingController controllerPass = TextEditingController();
+
+  void login(String email, password) async {
+  try {
+      var response = await Dio().get('http://localhost:3000/users?email=' + email + '&password=' + password);
+      if (response.data.length > 0) {
+          final snackBar = SnackBar(
+          backgroundColor: Color.fromARGB(255, 149, 83, 241),
+          content: Text(
+            'Login Success',
+            style: TextStyle(
+              fontFamily: 'Poppins-Regular',
+              color: Colors.white,
+            ),
+          ),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        print("Login success");
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
+      } else {
+        final snackBar = SnackBar(
+          backgroundColor: Colors.redAccent,
+          content: Text(
+            'Invalid email or password',
+            style: TextStyle(
+              fontFamily: 'Poppins-Regular',
+              color: Colors.white,
+            ),
+          ),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+
+    } catch (e) {
+     final snackBar = SnackBar(
+        backgroundColor: Colors.redAccent,
+        content: Text(
+          e.toString(),
+          style: TextStyle(
+            fontFamily: 'Poppins-Regular',
+            color: Colors.white,
+          ),
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
   return Scaffold(
@@ -17,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: [
             Container(
-              height: 300,
+              height: 215,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(90)),
                 color: Color.fromARGB(255, 149, 83, 241),
@@ -30,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                       Container(
                         margin: EdgeInsets.only(top: 20),
                         child: Image.asset(
-                          "images/logoclean.png"
+                          "assets/images/logoclean.png"
                         ),
                       ),
                     ],
@@ -61,6 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
               child: TextField(
+                controller: controllerEmail,
                 cursorColor: Color.fromARGB(255, 149, 83, 241),
                 decoration: InputDecoration(
                   icon: Icon(
@@ -70,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                   hintText: "Enter Email",hintStyle: TextStyle(
                     fontFamily: 'PromptRegular',
                     fontSize: 18,
-                    color: Color.fromARGB(255, 149, 83, 241),
+                    color: Color.fromARGB(255, 202, 161, 240),
                   ),
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
@@ -95,6 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
               child: TextField(
+                controller: controllerPass,
                 cursorColor: Color.fromARGB(255, 149, 83, 241),
                 decoration: InputDecoration(
                   focusColor: Color.fromARGB(255, 149, 83, 241),
@@ -105,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                   hintText: "Enter Password",hintStyle: TextStyle(
                     fontFamily: 'PromptRegular',
                     fontSize: 18,
-                    color: Color.fromARGB(255, 149, 83, 241),
+                    color: Color.fromARGB(255, 202, 161, 240),
                   ),
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
@@ -130,8 +186,7 @@ class _LoginPageState extends State<LoginPage> {
 
             GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()),
-                );
+               login(controllerEmail.text, controllerPass.text);
               },
               child: Container(
                 alignment: Alignment.center,

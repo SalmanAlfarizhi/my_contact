@@ -15,7 +15,7 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Column(
           children: [
             Container(
-              height: 300,
+              height: 215,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(90)),
                 color: Color.fromARGB(255, 149, 83, 241),
@@ -28,7 +28,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       Container(
                         margin: EdgeInsets.only(top: 20),
                         child: Image.asset(
-                          "images/logoclean.png"
+                          "assets/images/logoclean.png"
                         ),
                       ),
                     ],
@@ -68,7 +68,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   hintText: "Enter Email",hintStyle: TextStyle(
                     fontFamily: 'PromptRegular',
                     fontSize: 18,
-                    color: Color.fromARGB(255, 149, 83, 241),
+                    color: Color.fromARGB(255, 202, 161, 240),
                   ),
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
@@ -103,7 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   hintText: "Enter Password",hintStyle: TextStyle(
                     fontFamily: 'PromptRegular',
                     fontSize: 18,
-                    color: Color.fromARGB(255, 149, 83, 241),
+                    color: Color.fromARGB(255, 202, 161, 240),
                   ),
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
@@ -133,7 +133,7 @@ class _RegisterPageState extends State<RegisterPage> {
               },
               child: Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.only(left: 20, right: 20, top: 150),
+                margin: EdgeInsets.only(left: 20, right: 20, top: 130),
                 padding: EdgeInsets.only(left: 20, right: 20),
                 height: 54,
                 decoration: BoxDecoration(
