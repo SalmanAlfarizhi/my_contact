@@ -37,13 +37,13 @@ class _SplashPageState extends State<SplashPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/images/app_logo.png',height: 178,width: 148,),
+          Image.asset('assets/images/logo_app.png',height: 178,width: 148,),const SizedBox(),
           // Text("#oneforsolution",
           // style: TextStyle(
-          //   fontSize: 20,
-          //   color: Colors.white
-          // ),
-          // )
+          //   fontFamily: 'PromptRegular',
+          //   fontSize: 14,
+          //   color: Colors.white,
+          // ),)
         ],
       ),
       ),

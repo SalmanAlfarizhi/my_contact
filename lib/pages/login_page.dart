@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void login(String email, password) async {
   try {
-      var response = await Dio().get('http://localhost:3000/users?email=' + email + '&password=' + password);
+      var response = await Dio().get('http://192.168.1.71:3000/users?email=' + email + '&password=' + password);
       if (response.data.length > 0) {
           final snackBar = SnackBar(
           backgroundColor: Color.fromARGB(255, 149, 83, 241),
@@ -217,6 +217,17 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
+          // Container(
+          //   alignment: Alignment.center,
+          //   margin: EdgeInsets.only(top: 10),
+          //   child: Text("----------------------------------- OR -----------------------------------",
+          //   style: TextStyle(
+          //     fontFamily: 'PromptRegular',
+          //     fontSize: 12,
+          //     color: Color.fromARGB(255, 202, 161, 240)
+          //   ),)
+          // ),
+
             GestureDetector(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()),
@@ -224,7 +235,7 @@ class _LoginPageState extends State<LoginPage> {
               },
               child: Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+                margin: EdgeInsets.only(left: 20, right: 20, top: 10),
                 padding: EdgeInsets.only(left: 20, right: 20),
                 height: 54,
                 decoration: BoxDecoration(
