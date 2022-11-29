@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void login(String email, password) async {
   try {
-      var response = await Dio().get('http://192.168.1.71:3000/users?email=' + email + '&password=' + password);
+      var response = await Dio().get('http://localhost:3000/users?email=' + email + '&password=' + password);
       if (response.data.length > 0) {
           final snackBar = SnackBar(
           backgroundColor: Color.fromARGB(255, 149, 83, 241),
@@ -30,6 +30,8 @@ class _LoginPageState extends State<LoginPage> {
           ),
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        controllerEmail.clear();
+        controllerPass.clear();
         print("Login success");
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => HomePage()));
