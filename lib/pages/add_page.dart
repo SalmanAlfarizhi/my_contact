@@ -1,13 +1,46 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:my_contact/pages/home_page.dart';
 
 class AddPage extends StatefulWidget {
-  const AddPage({Key? key}) : super(key: key);
+  int user;
+  AddPage({Key? key, required this.user}) : super(key: key);
 
   @override
   State<AddPage> createState() => _AddPageState();
 }
 
 class _AddPageState extends State<AddPage> {
+  TextEditingController controllerName = TextEditingController();
+  TextEditingController controllerNumber = TextEditingController();
+
+  void addcontact(String name, number) async {
+    try {
+      var response = await Dio().post('http://localhost:3000/data',
+          data: {"username": name, "number": number});
+      if (response.statusCode == 201) {
+        final snackBar = SnackBar(
+          backgroundColor: Color.fromARGB(255, 149, 83, 241),
+          content: Text(
+            'Add Contact Success',
+            style: TextStyle(
+              fontFamily: 'Poppins-Regular',
+              color: Colors.white,
+            ),
+          ),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        controllerName.clear();
+        controllerNumber.clear();
+        print("Add Contact Success");
+      } else {
+        print("Add Data Failed");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,10 +55,23 @@ class _AddPageState extends State<AddPage> {
             color: Colors.white,
           ),
         ),
+        leading: new IconButton(
+          icon: new Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomePage(user: widget.user)),
+            );
+          },
+        ),
         actions: const [],
       ),
       body: Container(
-        padding: EdgeInsets.only(left: 50, right: 50, top: 30),
+        padding: EdgeInsets.only(left: 35, right: 35, top: 30),
         child: Column(
           children: [
             Padding(padding: EdgeInsets.only(top: 10)),
@@ -39,6 +85,11 @@ class _AddPageState extends State<AddPage> {
               ),
             ),
             TextFormField(
+              style: TextStyle(
+                  fontFamily: 'PromptMedium',
+                  fontSize: 16,
+                  color: Color.fromARGB(255, 149, 83, 241)),
+              controller: controllerName,
               decoration: const InputDecoration(
                   labelText: 'Name',
                   labelStyle: TextStyle(
@@ -59,6 +110,11 @@ class _AddPageState extends State<AddPage> {
                   )),
             ),
             TextFormField(
+              style: TextStyle(
+                  fontFamily: 'PromptMedium',
+                  fontSize: 16,
+                  color: Color.fromARGB(255, 149, 83, 241)),
+              controller: controllerNumber,
               decoration: const InputDecoration(
                   labelText: 'Phone Number',
                   labelStyle: TextStyle(
@@ -80,7 +136,7 @@ class _AddPageState extends State<AddPage> {
             ),
             GestureDetector(
               onTap: () {
-                // login(controllerEmail.text, controllerPass.text);
+                addcontact(controllerName.text, controllerNumber.text);
               },
               child: Container(
                 alignment: Alignment.center,
@@ -108,7 +164,11 @@ class _AddPageState extends State<AddPage> {
             ),
             GestureDetector(
               onTap: () {
-                // login(controllerEmail.text, controllerPass.text);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomePage(user: widget.user)),
+                );
               },
               child: Container(
                 alignment: Alignment.center,

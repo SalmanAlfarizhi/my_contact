@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_contact/pages/add_page.dart';
+import 'package:my_contact/pages/home.dart';
 import 'package:my_contact/pages/home_page.dart';
 import 'package:my_contact/pages/splash.dart';
 
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       //   primarySwatch: Colors.white,
       // ),
       home: SplashPage(),
+      // home: Home(),
       // home: HomePage(),
       // home: AddPage(),
     );

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:my_contact/pages/home_page.dart';
 import 'package:my_contact/pages/register_page.dart';
 
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -12,16 +11,18 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
   TextEditingController controllerEmail = TextEditingController();
   TextEditingController controllerPass = TextEditingController();
 
   void login(String email, password) async {
     try {
-      var response = await Dio().get('http://192.168.1.71:3000/users?email=' +
+      var response = await Dio().get('http://localhost:3000/users?email=' +
           email +
           '&password=' +
           password);
       if (response.data.length > 0) {
+        int user = response.data[0]['id']; 
         final snackBar = SnackBar(
           backgroundColor: Color.fromARGB(255, 149, 83, 241),
           content: Text(
@@ -37,8 +38,8 @@ class _LoginPageState extends State<LoginPage> {
         controllerEmail.clear();
         controllerPass.clear();
         print("Login success");
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomePage(user : user)));
       } else {
         final snackBar = SnackBar(
           backgroundColor: Colors.redAccent,
@@ -116,7 +117,10 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
           child: TextField(
-            style: TextStyle(color: Color.fromARGB(255, 149, 83, 241)),
+            style: TextStyle(
+                fontFamily: 'PromptMedium',
+                fontSize: 16,
+                color: Color.fromARGB(255, 149, 83, 241)),
             controller: controllerEmail,
             cursorColor: Color.fromARGB(255, 149, 83, 241),
             decoration: InputDecoration(
@@ -152,7 +156,10 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
           child: TextField(
-            style: TextStyle(color: Color.fromARGB(255, 149, 83, 241)),
+            style: TextStyle(
+                fontFamily: 'PromptMedium',
+                fontSize: 16,
+                color: Color.fromARGB(255, 149, 83, 241)),
             controller: controllerPass,
             cursorColor: Color.fromARGB(255, 149, 83, 241),
             decoration: InputDecoration(

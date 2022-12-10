@@ -1,17 +1,36 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:my_contact/Model/contact_model.dart';
 import 'package:my_contact/Service/contact_service.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:my_contact/pages/about_page.dart';
 import 'package:my_contact/pages/add_page.dart';
+import 'package:my_contact/Model/user_model.dart';
+import 'package:my_contact/pages/login_page.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:my_contact/pages/profile_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  int user;
+  HomePage({Key? key , required this.user}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  //   Future<void> deleteData(int id) async {
+  //   var response = await Dio().delete(
+  //     options: Options(
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     ),
+  //     "$baseurl/data/$id",
+  //   );
+  //   print(response.statusCode);
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,14 +38,105 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         backgroundColor: Color.fromARGB(255, 149, 83, 241),
         title: const Text(
-          "Home",
+          "Contact List",
           style: TextStyle(
             fontFamily: 'PromptSemiBold',
             fontSize: 16,
             color: Colors.white,
           ),
         ),
-        actions: const [],
+        actions: <Widget>[
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage(user : widget.user),
+                  ));
+                },
+                child: Icon(
+                  Icons.refresh,
+                  size: 26.0,
+                ),
+              )),
+        ],
+      ),
+      drawer: Drawer(
+        child: Container(
+          color: Color.fromARGB(255, 149, 83, 241),
+          child: ListView(
+            children: [
+              DrawerHeader(
+                child: Center(child: Image.asset('assets/images/welcome.png')),
+              ),
+              ListTile(
+                leading: Image.asset("assets/images/Home.png"),
+                title: Text(
+                  'Home',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'PromptRegular',
+                      color: Colors.white),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage(user : widget.user)),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Image.asset("assets/images/Profile.png"),
+                title: Text(
+                  'Profile',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'PromptRegular',
+                      color: Colors.white),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProfilePage(user : widget.user)),
+                  );                  
+                },
+              ),
+              ListTile(
+                leading: Image.asset("assets/images/Info.png"),
+                title: Text(
+                  'About',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'PromptRegular',
+                      color: Colors.white),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AboutPage()),
+                  );                  
+                },
+              ),
+              ListTile(
+                leading: Image.asset("assets/images/Logout.png"),
+                title: Text(
+                  'Logout',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'PromptRegular',
+                      color: Colors.white),
+                ),
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  );                  
+                },
+              ),
+            ],
+          ),
+        ),
       ),
       body: Container(
           child: FutureBuilder<List<ContactModel>>(
@@ -65,9 +175,6 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   backgroundColor:
                                       Color.fromARGB(255, 149, 83, 241)
-                                  // backgroundImage: const NetworkImage(
-                                  //   "https://i.ibb.co/QrTHd59/woman.jpg",
-                                  // ),
                                   ),
                               title: Text(
                                 '${snapshot.data![index].username}',
@@ -83,6 +190,15 @@ class _HomePageState extends State<HomePage> {
                                     fontSize: 12,
                                     color: Color.fromARGB(255, 149, 83, 241)),
                               ),
+                              // trailing: Image.asset(
+                              //   'assets/images/Delete.png',
+                              //   width: 18,
+                              //   height: 20,
+                              // ),
+                              // iconColor: Colors.red,
+                              // onTap: () async {
+                              //   // await ContactService().deleteContact(data!.id);
+                              // },
                             ),
                           ),
                         );
@@ -93,9 +209,9 @@ class _HomePageState extends State<HomePage> {
               })),
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => AddPage()),
+              MaterialPageRoute(builder: (context) => AddPage(user : widget.user)),
             );
           },
           label: const Text('Add'),
