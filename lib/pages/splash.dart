@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:my_contact/pages/landing_page.dart';
 import 'package:my_contact/pages/login_page.dart';
 
 class SplashPage extends StatefulWidget {
@@ -22,7 +23,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   LoginRoute(){
-    Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => LoginPage()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => LandingPage()));
   }
 
   Widget build(BuildContext context) {
@@ -38,12 +39,6 @@ class _SplashPageState extends State<SplashPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset('assets/images/logo_app.png',height: 178,width: 148,),const SizedBox(),
-          // Text("#oneforsolution",
-          // style: TextStyle(
-          //   fontFamily: 'PromptRegular',
-          //   fontSize: 14,
-          //   color: Colors.white,
-          // ),)
         ],
       ),
       ),
