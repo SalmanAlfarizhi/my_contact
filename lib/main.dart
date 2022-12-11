@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_contact/pages/about_page.dart';
 import 'package:my_contact/pages/add_page.dart';
+import 'package:my_contact/pages/detail_page.dart';
 import 'package:my_contact/pages/home_page.dart';
 import 'package:my_contact/pages/landing_page.dart';
 import 'package:my_contact/pages/splash.dart';
@@ -20,7 +22,9 @@ class MyApp extends StatelessWidget {
       //   primarySwatch: Colors.white,
       // ),
       // home: LandingPage(),
+      // home: AboutPage(),
       home: SplashPage(),
+      // home: DetailPage(),
       // home: Home(),
       // home: HomePage(),
       // home: AddPage(),

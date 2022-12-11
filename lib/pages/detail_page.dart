@@ -1,40 +1,35 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:my_contact/Model/user_model.dart';
 import 'package:my_contact/Service/contact_service.dart';
 import 'package:my_contact/pages/home_page.dart';
 import 'package:my_contact/pages/login_page.dart';
 import 'package:my_contact/pages/register_page.dart';
 
-class ProfilePage extends StatefulWidget {
-  int user;
-  ProfilePage({Key? key, required this.user}) : super(key: key);
+class DetailPage extends StatefulWidget {
+const DetailPage({Key? key}) : super(key: key);
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<DetailPage> createState() => _DetailPageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("User Profile"),
+        title: const Text("Detail Contact"),
         centerTitle: true,
         backgroundColor: Color.fromARGB(255, 149, 83, 241),
         actions: const [],
       ),
       body: SingleChildScrollView(
         child: FutureBuilder<UserModel>(
-          future: ContactService().fetchUser(widget.user),
+          // future: ContactService().fetchUser(widget.user),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: LoadingAnimationWidget.waveDots(
-                    color: Color.fromARGB(255, 149, 83, 241),
-                    size: 50,
-                  ),
+              return const Center(
+                child: CircularProgressIndicator(),
               );
             } else {
               if (snapshot.hasError) {
@@ -65,7 +60,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       Container(
                         alignment: Alignment.center,
-                        margin: EdgeInsets.only(left: 20, right: 20, top: 30),
+                        margin: EdgeInsets.only(left: 20, right: 20, top: 50),
                         padding: EdgeInsets.only(left: 20, right: 20),
                         height: 54,
                         decoration: BoxDecoration(
@@ -85,84 +80,6 @@ class _ProfilePageState extends State<ProfilePage> {
                               color: Color.fromARGB(255, 149, 83, 241)),
                           cursorColor: Color.fromARGB(255, 149, 83, 241),
                           decoration: InputDecoration(
-                            icon: Icon(
-                              Icons.numbers,
-                              color: Color.fromARGB(255, 149, 83, 241),
-                            ),
-                            hintText: snapshot.data!.id.toString(),
-                            hintStyle: TextStyle(
-                              fontFamily: 'PromptRegular',
-                              fontSize: 18,
-                              color: Color.fromARGB(255, 149, 83, 241),
-                            ),
-                            enabledBorder: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                          ),
-                        ),
-                      ),
-
-
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-                        padding: EdgeInsets.only(left: 20, right: 20),
-                        height: 54,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: Colors.grey[200],
-                          boxShadow: [
-                            BoxShadow(
-                                offset: Offset(0, 10),
-                                blurRadius: 50,
-                                color: Color(0xffEEEEEE)),
-                          ],
-                        ),
-                        child: TextField(
-                          style: TextStyle(
-                              fontFamily: 'PromptMedium',
-                              fontSize: 16,
-                              color: Color.fromARGB(255, 149, 83, 241)),
-                          cursorColor: Color.fromARGB(255, 149, 83, 241),
-                          decoration: InputDecoration(
-                            icon: Icon(
-                              Icons.people,
-                              color: Color.fromARGB(255, 149, 83, 241),
-                            ),
-                            hintText: snapshot.data!.name,
-                            hintStyle: TextStyle(
-                              fontFamily: 'PromptRegular',
-                              fontSize: 18,
-                              color: Color.fromARGB(255, 149, 83, 241),
-                            ),
-                            enabledBorder: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                          ),
-                        ),
-                      ),
-
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-                        padding: EdgeInsets.only(left: 20, right: 20),
-                        height: 54,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: Color(0xffEEEEEE),
-                          boxShadow: [
-                            BoxShadow(
-                                offset: Offset(0, 20),
-                                blurRadius: 100,
-                                color: Color(0xffEEEEEE)),
-                          ],
-                        ),
-                        child: TextField(
-                          style: TextStyle(
-                              fontFamily: 'PromptMedium',
-                              fontSize: 16,
-                              color: Color.fromARGB(255, 149, 83, 241)),
-                          cursorColor: Color.fromARGB(255, 149, 83, 241),
-                          decoration: InputDecoration(
-                            focusColor: Color.fromARGB(255, 149, 83, 241),
                             icon: Icon(
                               Icons.email,
                               color: Color.fromARGB(255, 149, 83, 241),
@@ -178,7 +95,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-
                       Container(
                         alignment: Alignment.center,
                         margin: EdgeInsets.only(left: 20, right: 20, top: 20),
@@ -206,7 +122,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               Icons.vpn_key,
                               color: Color.fromARGB(255, 149, 83, 241),
                             ),
-                            hintText: snapshot.data!.password,
+                            hintText: snapshot.data!.name,
                             hintStyle: TextStyle(
                               fontFamily: 'PromptRegular',
                               fontSize: 18,
@@ -217,21 +133,20 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-
                       Container(
                         margin:
                             EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                         alignment: Alignment.centerRight,
                         child: GestureDetector(
                           onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegisterPage()),
-                          );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RegisterPage()),
+                            );
                           },
                           child: Text(
-                            "Forget Password?",
+                            "Forget Passwor?",
                             style: TextStyle(
                                 color: Color.fromARGB(255, 149, 83, 241),
                                 fontSize: 12,
@@ -240,7 +155,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 30,
                       ),
                       GestureDetector(
                         onTap: () {
@@ -252,7 +167,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         },
                         child: Container(
                           alignment: Alignment.center,
-                          margin: EdgeInsets.only(left: 0, right: 0, top:10),
+                          margin: EdgeInsets.only(left: 0, right: 0, top: 70),
                           padding: EdgeInsets.only(left: 20, right: 20),
                           height: 54,
                           decoration: BoxDecoration(
@@ -269,6 +184,48 @@ class _ProfilePageState extends State<ProfilePage> {
                             "Logout",
                             style: TextStyle(
                                 color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: 'PromptMedium'),
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) =>
+                          //           HomePage(user: widget.user)),
+                          // );
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.only(left: 0, right: 0, top: 10),
+                          padding: EdgeInsets.only(left: 20, right: 20),
+                          height: 54,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFF0F0),
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(
+                              color: Color.fromARGB(
+                                255,
+                                149,
+                                83,
+                                241,
+                              ),
+                              width: 1,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                  offset: Offset(0, 10),
+                                  blurRadius: 50,
+                                  color: Color(0xffEEEEEE)),
+                            ],
+                          ),
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 149, 83, 241),
                                 fontSize: 18,
                                 fontFamily: 'PromptMedium'),
                           ),

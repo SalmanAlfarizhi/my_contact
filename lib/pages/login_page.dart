@@ -21,6 +21,11 @@ class _LoginPageState extends State<LoginPage> {
           email +
           '&password=' +
           password);
+
+      // var response = await Dio().get('http://192.168.1.71:3000/users?email=' +
+      //     email +
+      //     '&password=' +
+      //     password);
       if (response.data.length > 0) {
         int user = response.data[0]['id']; 
         final snackBar = SnackBar(
@@ -184,7 +189,10 @@ class _LoginPageState extends State<LoginPage> {
           alignment: Alignment.centerRight,
           child: GestureDetector(
             onTap: () {
-              // Write Click Listener Code Here
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => RegisterPage()),
+            );
             },
             child: Text(
               "Forgot Password?",
@@ -282,6 +290,8 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ],
-    )));
+    )
+    )
+    );
   }
 }

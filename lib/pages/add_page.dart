@@ -18,6 +18,10 @@ class _AddPageState extends State<AddPage> {
     try {
       var response = await Dio().post('http://localhost:3000/data',
           data: {"username": name, "number": number});
+
+      // var response = await Dio().post('http://192.168.1.71:3000/data',
+      //     data: {"username": name, "number": number});
+
       if (response.statusCode == 201) {
         final snackBar = SnackBar(
           backgroundColor: Color.fromARGB(255, 149, 83, 241),

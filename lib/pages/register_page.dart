@@ -18,6 +18,7 @@ class _RegisterPageState extends State<RegisterPage> {
   void register(String email, nama, password) async{
     try{
       var response = await Dio().post('http://localhost:3000/users',
+      // var response = await Dio().post('http://192.168.1.71:3000/users',
         data: {"email": email, "name":nama, "password":password});
       if (response.statusCode == 201) {
           final snackBar = SnackBar(
