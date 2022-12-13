@@ -6,13 +6,14 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:my_contact/pages/about_page.dart';
 import 'package:my_contact/pages/add_page.dart';
 import 'package:my_contact/Model/user_model.dart';
+import 'package:my_contact/pages/detail_page.dart';
 import 'package:my_contact/pages/login_page.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:my_contact/pages/profile_page.dart';
 
 class HomePage extends StatefulWidget {
   int user;
-  HomePage({Key? key , required this.user}) : super(key: key);
+  HomePage({Key? key, required this.user}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -51,9 +52,10 @@ class _HomePageState extends State<HomePage> {
               child: GestureDetector(
                 onTap: () {
                   Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomePage(user : widget.user),
-                  ));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomePage(user: widget.user),
+                      ));
                 },
                 child: Icon(
                   Icons.refresh,
@@ -82,7 +84,8 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage(user : widget.user)),
+                    MaterialPageRoute(
+                        builder: (context) => HomePage(user: widget.user)),
                   );
                 },
               ),
@@ -98,8 +101,9 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ProfilePage(user : widget.user)),
-                  );                  
+                    MaterialPageRoute(
+                        builder: (context) => ProfilePage(user: widget.user)),
+                  );
                 },
               ),
               ListTile(
@@ -115,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => AboutPage()),
-                  );                  
+                  );
                 },
               ),
               ListTile(
@@ -131,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => LoginPage()),
-                  );                  
+                  );
                 },
               ),
             ],
@@ -152,53 +156,74 @@ class _HomePageState extends State<HomePage> {
                   if (snapshot.hasError) {
                     return Text(snapshot.error.toString());
                   } else {
+                    // kok ga bisa di refactor ya
+                    // list view builder nya, wrap wid
                     return ListView.builder(
                       itemCount: snapshot.data!.length,
                       shrinkWrap: true,
                       physics: const ScrollPhysics(),
                       padding: EdgeInsets.all(10),
                       itemBuilder: (context, index) {
-                        return Card(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              // color: Color.fromARGB(255, 149, 83, 241)
-                            ),
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                  child: new Text(
-                                    '${snapshot.data![index].username[0]}',
-                                    style: TextStyle(
-                                        fontFamily: 'PromptMedium',
-                                        fontSize: 16,
-                                        color: Colors.white),
-                                  ),
-                                  backgroundColor:
-                                      Color.fromARGB(255, 149, 83, 241)
-                                  ),
-                              title: Text(
-                                '${snapshot.data![index].username}',
-                                style: TextStyle(
-                                    fontFamily: 'PromptMedium',
-                                    fontSize: 16,
-                                    color: Color.fromARGB(255, 149, 83, 241)),
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DetailPage(
+                                          contact: ContactModel(
+                                              username:
+                                                  "${snapshot.data?[index].username}",
+                                              number:
+                                                  "${snapshot.data?[index].number}",
+                                              id: int.parse(
+                                                  "${snapshot.data?[index].id}")),
+                                          letter:
+                                              "${snapshot.data?[index].username[0]}",
+                                          user: widget.user,
+                                        )));
+                          },
+                          child: Card(
+                            // ga ada center ya
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                // color: Color.fromARGB(255, 149, 83, 241)
                               ),
-                              subtitle: Text(
-                                '${snapshot.data![index].number}',
-                                style: TextStyle(
-                                    fontFamily: 'PromptRegular',
-                                    fontSize: 12,
-                                    color: Color.fromARGB(255, 149, 83, 241)),
+                              child: ListTile(
+                                leading: CircleAvatar(
+                                    child: new Text(
+                                      '${snapshot.data![index].username[0]}',
+                                      style: TextStyle(
+                                          fontFamily: 'PromptMedium',
+                                          fontSize: 16,
+                                          color: Colors.white),
+                                    ),
+                                    backgroundColor:
+                                        Color.fromARGB(255, 149, 83, 241)),
+                                title: Text(
+                                  '${snapshot.data![index].username}',
+                                  style: TextStyle(
+                                      fontFamily: 'PromptMedium',
+                                      fontSize: 16,
+                                      color: Color.fromARGB(255, 149, 83, 241)),
+                                ),
+                                subtitle: Text(
+                                  '${snapshot.data![index].number}',
+                                  style: TextStyle(
+                                      fontFamily: 'PromptRegular',
+                                      fontSize: 12,
+                                      color: Color.fromARGB(255, 149, 83, 241)),
+                                ),
+                                // trailing: Image.asset(
+                                //   'assets/images/Delete.png',
+                                //   width: 18,
+                                //   height: 20,
+                                // ),
+                                // iconColor: Colors.red,
+                                // onTap: () async {
+                                //   // await ContactService().deleteContact(data!.id);
+                                // },
                               ),
-                              // trailing: Image.asset(
-                              //   'assets/images/Delete.png',
-                              //   width: 18,
-                              //   height: 20,
-                              // ),
-                              // iconColor: Colors.red,
-                              // onTap: () async {
-                              //   // await ContactService().deleteContact(data!.id);
-                              // },
                             ),
                           ),
                         );
@@ -211,7 +236,8 @@ class _HomePageState extends State<HomePage> {
           onPressed: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => AddPage(user : widget.user)),
+              MaterialPageRoute(
+                  builder: (context) => AddPage(user: widget.user)),
             );
           },
           label: const Text('Add'),

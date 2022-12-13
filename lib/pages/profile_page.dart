@@ -125,7 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           cursorColor: Color.fromARGB(255, 149, 83, 241),
                           decoration: InputDecoration(
                             icon: Icon(
-                              Icons.people,
+                              Icons.person,
                               color: Color.fromARGB(255, 149, 83, 241),
                             ),
                             hintText: snapshot.data!.name,

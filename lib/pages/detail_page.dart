@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:my_contact/Model/contact_model.dart';
 import 'package:my_contact/Model/user_model.dart';
 import 'package:my_contact/Service/contact_service.dart';
 import 'package:my_contact/pages/home_page.dart';
@@ -7,13 +8,27 @@ import 'package:my_contact/pages/login_page.dart';
 import 'package:my_contact/pages/register_page.dart';
 
 class DetailPage extends StatefulWidget {
-const DetailPage({Key? key}) : super(key: key);
+final int user;
+final ContactModel contact;
+final String letter;
+const DetailPage({Key? key, required this.contact, required this.letter, required this.user}) : super(key: key);
 
   @override
   State<DetailPage> createState() => _DetailPageState();
 }
 
 class _DetailPageState extends State<DetailPage> {
+  TextEditingController controllerUsername = TextEditingController();
+  TextEditingController controllerPhone = TextEditingController();
+
+  @override
+  void initState(){
+    controllerUsername.text = widget.contact.username;
+    controllerPhone.text = widget.contact.number;
+    super.initState();
+  }
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,20 +39,7 @@ class _DetailPageState extends State<DetailPage> {
         actions: const [],
       ),
       body: SingleChildScrollView(
-        child: FutureBuilder<UserModel>(
-          // future: ContactService().fetchUser(widget.user),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else {
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text('Error: ${snapshot.error}'),
-                );
-              } else {
-                return Center(
+        child:  Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 10),
@@ -47,7 +49,7 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                       CircleAvatar(
                           child: new Text(
-                            '${snapshot.data!.name[0]}',
+                            widget.letter,
                             style: TextStyle(
                                 fontFamily: 'PromptMedium',
                                 fontSize: 40,
@@ -81,10 +83,10 @@ class _DetailPageState extends State<DetailPage> {
                           cursorColor: Color.fromARGB(255, 149, 83, 241),
                           decoration: InputDecoration(
                             icon: Icon(
-                              Icons.email,
+                              Icons.person,
                               color: Color.fromARGB(255, 149, 83, 241),
                             ),
-                            hintText: snapshot.data!.email,
+                            hintText: widget.contact.username,
                             hintStyle: TextStyle(
                               fontFamily: 'PromptRegular',
                               fontSize: 18,
@@ -119,10 +121,10 @@ class _DetailPageState extends State<DetailPage> {
                           decoration: InputDecoration(
                             focusColor: Color.fromARGB(255, 149, 83, 241),
                             icon: Icon(
-                              Icons.vpn_key,
+                              Icons.call,
                               color: Color.fromARGB(255, 149, 83, 241),
                             ),
-                            hintText: snapshot.data!.name,
+                            hintText: widget.contact.number,
                             hintStyle: TextStyle(
                               fontFamily: 'PromptRegular',
                               fontSize: 18,
@@ -133,37 +135,37 @@ class _DetailPageState extends State<DetailPage> {
                           ),
                         ),
                       ),
-                      Container(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                        alignment: Alignment.centerRight,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => RegisterPage()),
-                            );
-                          },
-                          child: Text(
-                            "Forget Passwor?",
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 149, 83, 241),
-                                fontSize: 12,
-                                fontFamily: 'PromptRegular'),
-                          ),
-                        ),
-                      ),
+                      // Container(
+                      //   margin:
+                      //       EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                      //   alignment: Alignment.centerRight,
+                      //   child: GestureDetector(
+                      //     // onTap: () {
+                      //     //   Navigator.push(
+                      //     //     context,
+                      //     //     MaterialPageRoute(
+                      //     //         builder: (context) => HomePage()),
+                      //     //   );
+                      //     },
+                      //     child: Text(
+                      //       "Forget Password?",
+                      //       style: TextStyle(
+                      //           color: Color.fromARGB(255, 149, 83, 241),
+                      //           fontSize: 12,
+                      //           fontFamily: 'PromptRegular'),
+                      //     ),
+                      //   ),
+                      // ),
                       const SizedBox(
-                        height: 30,
+                        height: 70,
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginPage()),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => LoginPage()),
+                          // );
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -181,7 +183,7 @@ class _DetailPageState extends State<DetailPage> {
                             ],
                           ),
                           child: Text(
-                            "Logout",
+                            "Delete",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
@@ -191,12 +193,12 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) =>
-                          //           HomePage(user: widget.user)),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    HomePage(user: widget.user,)),
+                          );
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -233,12 +235,9 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                     ]),
                   ),
-                );
-              }
-            }
-          },
-        ),
+                ),
       ),
+
     );
   }
 }

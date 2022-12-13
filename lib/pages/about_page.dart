@@ -59,7 +59,7 @@ class _AboutPageState extends State<AboutPage> {
                   ),
                 ),
                 SizedBox(
-                  height: 140,
+                  height: 120,
                 ),
                 GestureDetector(
                   // onTap: () {
