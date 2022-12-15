@@ -40,7 +40,7 @@ class _LandingPageState extends State<LandingPage> {
               ),
               Padding(padding: EdgeInsets.only(bottom: 15)),
               const Text(
-                'Delicious as is or tossed with your\nfavorite ingredients',
+                'Simple,Secure and Easy To Use\nFor Mantain Your Personal Contact',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'PromptRegular',

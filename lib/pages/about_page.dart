@@ -50,7 +50,7 @@ class _AboutPageState extends State<AboutPage> {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  "Nama : Salman Alfarizhi\nNIM : 200605110178\nMatakuliah : Praktikum Mobile Programming - G\n----------------------------------------------------------------\nAplikasi ini merupakan sebuah aplikasi kontak yang memudahkan user untuk dapat menyimpan nomor kontak secara langsung di dalam aplikasi dengan mudah.Aplikasi ini dibuat guna menyelesaikan tugas akhir semeter mata kuliah Praktikum Mobile Programming",
+                  "Nama : Salman Alfarizhi\nNIM : 200605110178\nMatakuliah : Praktikum Mobile Programming - G\n----------------------------------------------------------------------------\nAplikasi ini merupakan sebuah aplikasi kontak yang memudahkan user untuk dapat menyimpan nomor kontak secara langsung di dalam aplikasi dengan mudah.Aplikasi ini dibuat guna menyelesaikan tugas akhir semeter mata kuliah Praktikum Mobile Programming",
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     fontSize: 12,

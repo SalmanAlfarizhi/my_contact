@@ -16,11 +16,11 @@ class _AddPageState extends State<AddPage> {
 
   void addcontact(String name, number) async {
     try {
-      var response = await Dio().post('http://localhost:3000/data',
-          data: {"username": name, "number": number});
-
-      // var response = await Dio().post('http://192.168.1.71:3000/data',
+      // var response = await Dio().post('http://localhost:3000/data',
       //     data: {"username": name, "number": number});
+
+      var response = await Dio().post('http://192.168.1.71:3000/data',
+          data: {"username": name, "number": number});
 
       if (response.statusCode == 201) {
         final snackBar = SnackBar(
@@ -144,7 +144,7 @@ class _AddPageState extends State<AddPage> {
               },
               child: Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.only(left: 0, right: 0, top: 70),
+                margin: EdgeInsets.only(left: 0, right: 0, top: 60),
                 padding: EdgeInsets.only(left: 20, right: 20),
                 height: 54,
                 decoration: BoxDecoration(

@@ -17,15 +17,15 @@ class _LoginPageState extends State<LoginPage> {
 
   void login(String email, password) async {
     try {
-      var response = await Dio().get('http://localhost:3000/users?email=' +
-          email +
-          '&password=' +
-          password);
-
-      // var response = await Dio().get('http://192.168.1.71:3000/users?email=' +
+      // var response = await Dio().get('http://localhost:3000/users?email=' +
       //     email +
       //     '&password=' +
       //     password);
+
+      var response = await Dio().get('http://192.168.1.71:3000/users?email=' +
+          email +
+          '&password=' +
+          password);
       if (response.data.length > 0) {
         int user = response.data[0]['id']; 
         final snackBar = SnackBar(

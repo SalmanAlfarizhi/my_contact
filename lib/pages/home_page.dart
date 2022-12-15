@@ -183,7 +183,6 @@ class _HomePageState extends State<HomePage> {
                                         )));
                           },
                           child: Card(
-                            // ga ada center ya
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
